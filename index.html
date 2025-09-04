@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐱 냥냥운세</title>
+  <style>
+    body {
+      font-family: "Pretendard", "Noto Sans KR", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #d9e4f5, #fce1ec);
+      color: #333;
+      padding: 40px 20px;
+      box-sizing: border-box;
+    }
+    .container {
+      max-width: 700px;
+      text-align: center;
+      width: 100%;
+    }
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 15px;
+    }
+    p {
+      margin-bottom: 25px;
+      font-size: 1.1em;
+    }
+    .btn-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 12px;
+      margin-bottom: 20px;
+    }
+    .btn {
+      background: #8e7dff;
+      color: white;
+      border: none;
+      padding: 12px;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #6c5ce7;
+    }
+    .fortune {
+      margin-top: 20px;
+      font-size: 1.2em;
+      padding: 25px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      line-height: 1.6em;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🌙 오늘의 냥냥운세</h1>
+    <p>고양이가 속삭이는 신비로운 메시지를 들어보세요.</p>
+    <div class="btn-grid">
+      <button class="btn" onclick="pickFortune('love')">💕 사랑</button>
+      <button class="btn" onclick="pickFortune('work')">📚 일/공부</button>
+      <button class="btn" onclick="pickFortune('money')">💰 재물</button>
+      <button class="btn" onclick="pickFortune('luck')">🍀 행운</button>
+      <button class="btn" onclick="pickFortune('health')">🌿 건강</button>
+      <button class="btn" onclick="pickFortune('travel')">✈️ 여행</button>
+      <button class="btn" onclick="pickFortune('inspire')">🔮 영감</button>
+    </div>
+    <div id="result"></div>
+  </div>
+
+  <script>
+    const fortunes = {
+      love: [
+        "달빛 아래서 새로운 인연의 기운이 깃듭니다 🌙",
+        "길냥이처럼 불쑥 다가오는 인연이 설레임을 줍니다 🐈",
+        "작은 친절이 큰 사랑의 씨앗이 됩니다 🌸",
+        "깊은 대화가 두 마음을 잇습니다 💕",
+        "오늘은 운명 같은 만남이 기다리고 있습니다 ✨",
+        "사랑은 오늘, 예상치 못한 순간에 다가옵니다 💌",
+        "과거의 인연이 다시 다가올지도 모릅니다 🔮",
+        "불운처럼 보이는 다툼도 서로를 깊게 이해하게 합니다 ⚡",
+        "미소 속에 숨어 있는 고백을 발견합니다 🌺",
+        "고양이의 눈빛처럼 호기심이 사랑을 부릅니다 👁️"
+      ],
+      work: [
+        "오늘은 집중력이 레벨업되는 날입니다 🚀",
+        "작은 성취가 큰 동기부여로 이어집니다 ✨",
+        "동료와의 협력이 빛나는 순간입니다 🤝",
+        "계획이 흔들려도 의지는 꺾이지 않습니다 💪",
+        "달빛 같은 고요 속에서 답을 찾을 수 있습니다 🌙",
+        "실패는 오늘 배움의 지름길입니다 📖",
+        "한숨 돌리는 순간 더 멀리 뛸 수 있습니다 🏃",
+        "오늘은 도전이 행운으로 이어지는 날입니다 🍀",
+        "예상치 못한 아이디어가 성과를 만듭니다 💡",
+        "불운처럼 다가온 실수도 성장을 위한 계단입니다 ⚡"
+      ],
+      money: [
+        "주머니 속 잊힌 동전이 오늘의 행운 열쇠입니다 🪙",
+        "뜻밖의 수입이 들어올 수 있습니다 🎁",
+        "작은 절약이 큰 풍요로 이어집니다 💰",
+        "오늘은 소비보다 수입이 많습니다 📈",
+        "지혜로운 선택이 부를 부릅니다 🧭",
+        "숨은 재물이 발견될 수 있습니다 💎",
+        "재물운은 고양이처럼 조용히 다가옵니다 🐾",
+        "오늘의 작은 기부가 큰 복으로 돌아옵니다 🌸",
+        "불운처럼 보이는 지출도 결국 필요한 투자일 수 있습니다 ⚡",
+        "낯선 제안이 큰 기회로 이어집니다 🔑"
+      ],
+      luck: [
+        "낯선 길모퉁이에서 행운을 마주합니다 🌿",
+        "버스 창가 자리가 오늘의 행운석입니다 🚌",
+        "보라색 물건이 오늘 힘을 줍니다 💜",
+        "책 속 우연히 펼친 문장이 답이 됩니다 📖",
+        "길냥이를 만나면 좋은 일이 생깁니다 🐈",
+        "오늘은 별빛이 당신의 길을 비춥니다 ✨",
+        "무심코 본 광고 문구가 메시지를 전합니다 📢",
+        "작은 친절이 큰 행운으로 돌아옵니다 🌸",
+        "불운처럼 보이는 사건이 오히려 길을 엽니다 ⚡",
+        "하늘을 올려다보면 좋은 소식이 찾아옵니다 ☁️"
+      ],
+      health: [
+        "따뜻한 차 한 잔이 몸과 마음을 편안하게 합니다 🍵",
+        "짧은 스트레칭이 하루의 피로를 풀어줍니다 🧘",
+        "햇빛을 쬐며 산책하면 좋은 기운이 들어옵니다 ☀️",
+        "물을 충분히 마시면 에너지가 맑아집니다 💧",
+        "마음을 가볍게 하는 것이 최고의 건강 비결입니다 🌿",
+        "오늘은 일찍 잠드는 것이 보약입니다 🌙",
+        "깊은 호흡이 긴장을 풀어줍니다 🌬️",
+        "자연 속 휴식이 기운을 맑게 합니다 🌲",
+        "걷기만 해도 몸이 환해집니다 🚶",
+        "웃음이 최고의 영양제입니다 😸",
+        "오늘은 무리하지 말고 몸의 신호에 귀 기울이세요 🔔",
+        "식사를 천천히 하면 소화가 좋아집니다 🥗",
+        "잠시 눈을 감고 명상하면 큰 도움이 됩니다 🧘‍♂️",
+        "불운처럼 보이는 피로는 휴식이 필요하다는 신호입니다 ⚡",
+        "자신을 아끼는 것이 곧 건강의 시작입니다 💖"
+      ],
+      travel: [
+        "낯선 길에서 신비로운 풍경을 만납니다 🗺️",
+        "작은 여행이 큰 활력이 됩니다 🚶",
+        "바닷바람이 고민을 씻어줍니다 🌊",
+        "공원 산책이 곧 여행이 됩니다 🌳",
+        "지도에 없는 길이 오늘의 행운을 품습니다 🗺️",
+        "카페 창가에서 보는 풍경이 여행만큼 특별합니다 ☕",
+        "길에서 우연히 들린 음악이 추억이 됩니다 🎶",
+        "하늘을 올려다보며 걷는 길, 그것이 여행입니다 ☁️",
+        "가까운 곳에서 보석 같은 장소를 발견합니다 💎",
+        "불운처럼 보이는 길 잃음이 아름다운 발견으로 이어집니다 🌌"
+      ],
+      inspire: [
+        "책 속 문장에서 오늘의 답을 찾습니다 📖",
+        "고양이 눈빛처럼 선명한 영감이 스쳐갑니다 👁️",
+        "작은 소리에도 귀 기울이면 메시지가 숨어있습니다 👂",
+        "꿈에서 얻은 이미지가 현실의 아이디어로 이어집니다 🌙",
+        "상상력이 오늘을 특별하게 만듭니다 ✨",
+        "고요 속에서 번뜩이는 아이디어가 떠오릅니다 🌌",
+        "오늘의 실패는 내일의 영감이 됩니다 🌱",
+        "창문 밖 풍경이 새로운 생각을 불러옵니다 🪟",
+        "무심히 들은 말이 큰 영감을 줍니다 💡",
+        "불운처럼 다가온 시련이 창조의 불씨가 됩니다 🔥"
+      ]
+    };
+
+    function pickFortune(theme) {
+      const items = fortunes[theme];
+      const random = items[Math.floor(Math.random() * items.length)];
+      document.getElementById("result").innerHTML = `<div class="fortune">${random}</div>`;
+    }
+  </script>
+</body>
+</html>
