@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💌 오늘의 냥냥 응원</title>
+  <style>
+    body {
+      font-family: "Pretendard", "Noto Sans KR", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #ffe6f0, #e6f7ff);
+      color: #333;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      padding: 40px 30px;
+      animation: fadeIn 0.6s ease;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    p {
+      margin-bottom: 20px;
+      font-size: 1.1em;
+      color: #555;
+    }
+    .btn {
+      background: #ff99cc;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: 0.3s;
+      margin-bottom: 20px;
+    }
+    .btn:hover {
+      background: #ff66aa;
+    }
+    .fortune {
+      font-size: 1.3em;
+      line-height: 1.8em;
+      padding: 20px;
+      background: #fdf6ff;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      min-height: 80px;
+      white-space: normal;  /* 자동 줄바꿈 */
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💌 오늘의 냥냥 응원</h1>
+    <p>고양이가 속삭이는<br>따뜻한 메시지를 뽑아보세요!</p>
+    <button class="btn" onclick="pickCheer()">🐾 응원 받기</button>
+    <div id="result" class="fortune"></div>
+  </div>
+
+  <script>
+    const cheer = [
+     "오늘 할 만큼 했습니다 ✅ 이제는 쉬어도 됩니다 🛋️",
+  "완벽보다 중요한 건 우선순위 📌 하나씩 정리하세요.",
+  "지금은 잠깐 충전이 필요합니다 🔋 내일은 더 나아질 거예요.",
+  "작은 성과라도 체크해두세요 📝 꾸준함이 힘입니다.",
+  "야근은 예외, 건강은 기본 🩺 몸을 먼저 챙기세요.",
+  "오늘의 피곤함은 내일의 속도를 위한 준비입니다 ⏳",
+  "실수는 비용이 아니라 데이터입니다 📊 배우는 과정이에요.",
+  "짧은 산책 🚶 생각 정리에 도움이 됩니다.",
+  "퇴근 후는 내 시간 ⌛ 균형이 결국 성과를 만듭니다.",
+  "오늘도 업무를 끝까지 해낸 당신 👏 충분히 대단합니다.",
+  "회의는 짧게, 메시지는 분명하게 ✉️",
+  "우선순위를 줄이면 효율이 늘어납니다 📈",
+  "결정은 단순하게, 설명은 명확하게 🗝️",
+  "내가 통제할 수 있는 것부터 챙기세요 🛡️",
+  "오늘은 여기까지 🏁 남은 건 내일의 몫입니다.",
+  "짧은 스트레칭이 큰 활력을 줍니다 🧘",
+  "작은 성과에 스스로 박수 👏 충분히 의미 있습니다.",
+  "건강한 식사가 최고의 성과 관리입니다 🍲",
+  "불필요한 걱정보다 중요한 기준을 잡으세요 🎯",
+  "오늘도 버텨낸 하루, 기록만으로도 가치 있습니다 📖",
+  "눈치보다 원칙 ⚖️ 원칙이 피로를 줄여줍니다.",
+  "지금은 쉬는 게 전략입니다 💤",
+  "작은 습관이 큰 변화를 만듭니다 🌱",
+  "내일은 분명히 더 나아질 겁니다 🌞",
+  "작업이 막힐 땐 5분 쉬어도 괜찮습니다 ⏱️",
+  "오늘은 완벽보다 진행 🔄 꾸준함이 답입니다.",
+  "일정은 줄이고 집중은 높이세요 🔍",
+  "불필요한 일은 과감히 덜어내세요 ✂️",
+  "오늘도 충분히 해냈습니다 🙌 자신을 인정하세요.",
+  "남과 비교보다 어제의 나와 비교하세요 📊",
+  "짧은 낮잠이 오히려 성과를 올려줍니다 😴",
+  "중요한 건 속도가 아니라 방향입니다 🧭",
+  "작은 목표 달성이 큰 자신감을 줍니다 🌟",
+  "무리하지 않는 것도 성실함의 일부입니다 🪷",
+  "내일의 성과는 오늘의 휴식에서 나옵니다 🌙",
+  "작은 실패도 발전의 자산입니다 💎",
+  "지금 멈춘다고 흐름이 끊기지 않습니다 ⏸️",
+  "팀워크가 오늘의 부담을 줄여줍니다 🤝",
+  "불필요한 회의보다 명확한 기록이 낫습니다 📑",
+  "오늘은 할 수 있는 만큼만 하면 됩니다 🤲",
+  "건강은 업무 능력의 기반입니다 🏋️",
+  "단순함이 곧 생산성입니다 🧩",
+  "기록이 쌓이면 자신감도 쌓입니다 📒",
+  "오늘의 고생은 미래의 안정으로 이어집니다 🛠️",
+  "작은 칭찬 한 마디가 팀 분위기를 살립니다 💬",
+  "불필요한 야근은 내일의 집중력을 빼앗습니다 🚫",
+  "긴 하루 끝에 잠시의 웃음이 큰 힘이 됩니다 😌",
+  "중요한 건 완벽보다 꾸준함입니다 🔄",
+  "오늘도 끝까지 버틴 당신, 충분히 가치 있습니다 🏆"
+];
+
+    function pickCheer() {
+      const random = cheer[Math.floor(Math.random() * cheer.length)];
+      document.getElementById("result").innerHTML = random;
+    }
+  </script>
+</body>
+</html>
