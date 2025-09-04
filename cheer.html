@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>💌 오늘의 냥냥 응원</title>
+  <style>
+    body {
+      font-family: "Pretendard", "Noto Sans KR", sans-serif;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      background: linear-gradient(135deg, #ffe6f0, #e6f7ff);
+      color: #333;
+      text-align: center;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 8px 16px rgba(0,0,0,0.15);
+      padding: 40px 30px;
+      animation: fadeIn 0.6s ease;
+    }
+    h1 {
+      font-size: 2em;
+      margin-bottom: 10px;
+    }
+    p {
+      margin-bottom: 20px;
+      font-size: 1.1em;
+      color: #555;
+    }
+    .btn {
+      background: #ff99cc;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: 0.3s;
+      margin-bottom: 20px;
+    }
+    .btn:hover {
+      background: #ff66aa;
+    }
+    .fortune {
+      font-size: 1.3em;
+      line-height: 1.8em;
+      padding: 20px;
+      background: #fdf6ff;
+      border-radius: 15px;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+      min-height: 80px;
+      white-space: normal;  /* 자동 줄바꿈 */
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(15px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>💌 오늘의 냥냥 응원</h1>
+    <p>고양이가 속삭이는<br>따뜻한 메시지를 뽑아보세요!</p>
+    <button class="btn" onclick="pickCheer()">🐾 응원 받기</button>
+    <div id="result" class="fortune"></div>
+  </div>
+
+  <script>
+    const cheer = [
+      "오늘도 잘 하고 있어요 🌙<br>작은 발걸음이 별빛으로 이어집니다 ✨",
+      "고양이가 귀엽게 속삭여요:<br>‘너무 애쓰지 않아도 괜찮아’ 🐾",
+      "햇빛 한 줌이<br>당신 마음을 따뜻하게 안아줄 거예요 ☀️",
+      "한 번 크게 숨 쉬고,<br>천천히 미소 지어봐요 🌿",
+      "작은 피곤함도<br>잠시 머무는 손님일 뿐이에요 💤",
+      "당신의 노력은<br>눈에 보이지 않아도 쌓이고 있어요 📚",
+      "물 한 모금이<br>몸과 마음을 맑게 해줍니다 💧",
+      "오늘은 스스로에게<br>‘고생했어’라고 말해줘도 좋아요 💖",
+      "작은 고양이의 응원:<br>‘오늘은 분명히 좋은 일이 있어!’ 🐱",
+      "낯선 바람이<br>당신에게 새로운 기운을 가져옵니다 🍃",
+      "깊은 밤도 곧 아침이 되듯,<br>지금도 곧 빛나게 될 거예요 🌅",
+      "한 번의 웃음이<br>하루의 피로를 녹입니다 😺",
+      "당신은 이미 충분히<br>멋진 길을 걷고 있어요 🐾",
+      "작은 산책이<br>큰 치유가 됩니다 🚶‍♀️",
+      "오늘도 건강을 챙기는 당신이<br>가장 빛나요 🌟",
+      "불운처럼 보이는 어려움도<br>결국 당신을 단단하게 합니다 🛡️",
+      "포근한 담요처럼<br>따뜻한 하루가 기다리고 있어요 🧣",
+      "물을 마실 때마다<br>새로운 힘이 깃듭니다 💦",
+      "작은 실수는<br>내일의 지혜가 됩니다 📖",
+      "오늘도 당신의 마음은<br>충분히 소중합니다 💝",
+      "고양이가 살짝 윙크하며 말해요:<br>‘잘 하고 있어’ 😉",
+      "햇살 아래서 눈을 감으면<br>새로운 영감이 와요 ☀️",
+      "건강은 천천히 쌓이는<br>보물 같아요 💎",
+      "작은 쉬어감이<br>오히려 큰 속도로 이어집니다 🌊",
+      "따뜻한 차 향기가<br>당신의 마음을 감싸줍니다 🍵",
+      "오늘의 피곤함은<br>내일의 꽃이 됩니다 🌸",
+      "당신이 걸어가는 길마다<br>작은 별빛이 내려옵니다 🌌",
+      "잠깐의 낮잠이<br>천사의 선물처럼 다가옵니다 😴",
+      "오늘의 고생은<br>내일의 미소가 됩니다 😊",
+      "고양이 발걸음처럼 조용히,<br>그러나 꾸준히 나아가보세요 🐾",
+      "작은 웃음 하나가<br>하루를 바꿀 수 있어요 🌈",
+      "불운처럼 보이는 오늘도<br>사실은 행운을 준비합니다 🍀",
+      "차분한 호흡이<br>몸과 마음을 맑게 합니다 🌬️",
+      "오늘은 자기 자신을<br>응원하는 날이에요 💌",
+      "별빛은 항상<br>당신을 지켜보고 있어요 ✨",
+      "한 모금의 따뜻한 국물이<br>최고의 약이 됩니다 🍲",
+      "오늘은 생각보다 더 많은 힘이<br>당신 안에 있어요 💪",
+      "고양이가 속삭여요:<br>‘네가 가는 길은 옳아’ 🐱",
+      "작은 기적은<br>이미 당신 곁에 와 있어요 🎁",
+      "조용한 음악이<br>오늘을 특별하게 만듭니다 🎶",
+      "당신은 혼자가 아니에요,<br>늘 응원이 함께합니다 🕊️",
+      "작은 스트레칭이<br>큰 활력을 불러옵니다 🧘",
+      "오늘은 마음이 원하는 걸<br>들어주는 날이에요 🎀",
+      "포근한 베개가<br>천국 같을 거예요 🛏️",
+      "고양이가 꼬리를 흔들며 말해요:<br>‘잘하고 있어!’ 🐈",
+      "작은 빛줄기가<br>어둠을 물리치듯 당신도 빛납니다 🔦",
+      "오늘의 응원은<br>당신 안의 힘을 깨웁니다 🌟",
+      "차분히 흘러가는 시간 속에서<br>당신은 더 빛나요 🌊",
+      "건강과 행복은<br>작은 습관 속에서 자라납니다 🌱",
+      "오늘도 잘 버텨낸 당신,<br>고양이가 꼭 안아줍니다 🤗"
+    ];
+
+    function pickCheer() {
+      const random = cheer[Math.floor(Math.random() * cheer.length)];
+      document.getElementById("result").innerHTML = random;
+    }
+  </script>
+</body>
+</html>
