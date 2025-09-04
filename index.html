@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🐱 냥냥운세</title>
+  <style>
+    body {
+      font-family: "Pretendard", "Noto Sans KR", sans-serif;
+      text-align: center;
+      background: linear-gradient(135deg, #d9e4f5, #fce1ec);
+      color: #333;
+      padding: 40px;
+    }
+    h1 {
+      font-size: 2.2em;
+      margin-bottom: 15px;
+    }
+    p {
+      margin-bottom: 25px;
+      font-size: 1.1em;
+    }
+    .btn {
+      background: #8e7dff;
+      color: white;
+      border: none;
+      padding: 15px 25px;
+      margin: 10px;
+      border-radius: 30px;
+      cursor: pointer;
+      font-size: 1.1em;
+      transition: 0.3s;
+    }
+    .btn:hover {
+      background: #6c5ce7;
+    }
+    .fortune {
+      margin-top: 30px;
+      font-size: 1.25em;
+      padding: 25px;
+      background: #fff;
+      border-radius: 15px;
+      box-shadow: 0 6px 12px rgba(0,0,0,0.15);
+      display: inline-block;
+      min-width: 280px;
+      max-width: 380px;
+      line-height: 1.6em;
+      animation: fadeIn 0.5s ease;
+    }
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+  </style>
+</head>
+<body>
+  <h1>🌙 오늘의 냥냥운세</h1>
+  <p>고양이가 속삭이는 신비로운 메시지를 들어보세요.</p>
+  <div>
+    <button class="btn" onclick="pickFortune('love')">💕 사랑</button>
+    <button class="btn" onclick="pickFortune('work')">📚 일/공부</button>
+    <button class="btn" onclick="pickFortune('money')">💰 재물</button>
+    <button class="btn" onclick="pickFortune('luck')">🍀 행운 아이템</button>
+  </div>
+
+  <div id="result"></div>
+
+  <script>
+    const fortunes = {
+      love: [
+        "오늘은 달빛이 당신의 마음을 부드럽게 비추네요 🌙 새로운 인연이 다가올지도 몰라요.",
+        "낯선 길에서 우연히 마주친 미소가 인연의 씨앗이 됩니다 🌸",
+        "고양이처럼 느긋하게, 상대의 속도를 존중해 보세요.",
+        "작은 친절이 큰 사랑으로 이어질 수 있어요 💕",
+        "오늘은 오래된 친구와의 대화 속에서 따뜻함을 찾을 거예요.",
+        "운명의 끈이 살짝 당겨지는 날 ✨ 마음이 두근거릴지도 몰라요.",
+        "길냥이를 만나듯, 뜻밖의 사람이 당신의 하루에 들어올 거예요 🐈"
+      ],
+      work: [
+        "새벽 공기처럼 상쾌한 아이디어가 떠오를 거예요 🌅",
+        "작은 메모가 큰 영감을 불러옵니다 ✍️",
+        "오늘은 실수조차 배움으로 바뀌는 날입니다.",
+        "책상 위를 정리하면 새로운 기운이 들어올 거예요.",
+        "고양이의 균형 감각처럼, 오늘은 일과 휴식을 잘 조절해보세요.",
+        "낯선 분야에 발을 디디면 생각지도 못한 능력을 발견할 수 있어요.",
+        "협업이 빛나는 날, 작은 대화에서 해답을 찾을 거예요."
+      ],
+      money: [
+        "주머니 속 동전이 행운을 불러올지도 몰라요 🪙",
+        "오늘은 작은 소비가 큰 만족으로 이어집니다.",
+        "낯선 카페에서 새로운 기회가 열릴 수 있어요 ☕",
+        "중고 물건 속에서 숨은 보물을 발견할 수 있습니다.",
+        "당신의 꾸준함이 재물운을 단단하게 만들어가고 있어요.",
+        "숨어있던 수입이 들어올 조짐이 보여요 💰",
+        "오늘은 절약이 곧 가장 큰 투자입니다."
+      ],
+      luck: [
+        "오늘의 행운 아이템은… 반짝이는 열쇠고리 🔑",
+        "낯선 길로 산책을 즐겨보세요, 그곳에 작은 행운이 숨어있습니다 🌿",
+        "오늘은 버스 창가 자리가 행운의 자리가 될 거예요 🚌",
+        "하늘을 올려다보면 좋은 소식이 찾아옵니다 ☁️",
+        "보라색 물건이 오늘 당신에게 힘을 줄 거예요 💜",
+        "책 속에서 우연히 펼친 페이지가 메시지를 전해줄 거예요 📖",
+        "창문을 활짝 열고 바람을 맞아보세요, 좋은 기운이 들어옵니다 🍃"
+      ]
+    };
+
+    function pickFortune(theme) {
+      const items = fortunes[theme];
+      const random = items[Math.floor(Math.random() * items.length)];
+      document.getElementById("result").innerHTML = `<div class="fortune">${random}</div>`;
+    }
+  </script>
+</body>
+</html>
