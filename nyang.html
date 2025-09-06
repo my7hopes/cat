@@ -13,7 +13,7 @@
       justify-content: center;
       min-height: 100vh;
       margin: 0;
-      background: linear-gradient(135deg, #a1c4fd, #c2e9fb);
+      background: linear-gradient(135deg, #a1c4fd, #c2e9fb); /* 파스텔 블루톤 */
       color: #333;
       text-align: center;
       padding: 20px;
@@ -27,13 +27,16 @@
       font-size: 1.5rem;
       font-weight: bold;
       background: #fff;
-      padding: 40px 30px;
+      padding: 24px 28px;          /* 여백 조정 */
       border-radius: 20px;
-      box-shadow: 0 8px 20px rgba(0,0,0,0.15);
-      min-height: 120px;
+      box-shadow: 0 6px 16px rgba(0,0,0,0.1);
       max-width: 600px;
       line-height: 1.6;
       margin-top: 10px;
+
+      display: inline-block;       /* 글자 길이에 맞는 박스 */
+      text-align: center;
+
       opacity: 0;
       transform: scale(0.9);
       transition: all 0.5s ease;
@@ -49,7 +52,7 @@
       border: none;
       border-radius: 25px;
       cursor: pointer;
-      background: linear-gradient(135deg, #ff9a9e, #fecfef);
+      background: linear-gradient(135deg, #ff9a9e, #fecfef); /* 분홍 파스텔 버튼 */
       color: #333;
       font-weight: bold;
       box-shadow: 0 4px 10px rgba(0,0,0,0.1);
