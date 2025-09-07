@@ -23,6 +23,14 @@
       margin-bottom: 20px;
       text-shadow: 2px 2px 8px rgba(0,0,0,0.1);
     }
+    #intro {
+      font-size: 1.1rem;
+      color: #444;
+      margin-bottom: 20px;
+      line-height: 1.6;
+      font-style: italic;
+      opacity: 0.9;
+    }
     #advice-box {
       font-size: 1.5rem;
       font-weight: bold;
@@ -34,7 +42,7 @@
       line-height: 1.6;
       margin-top: 10px;
 
-      display: inline-block;      /* 문장 길이에 맞춰 */
+      display: inline-block;
       text-align: center;
 
       opacity: 0;
@@ -66,6 +74,10 @@
 </head>
 <body>
   <h1>📖 해결 냥냥이 🐱</h1>
+  <p id="intro">
+    마음속으로 고민이나 질문을 떠올리고 버튼을 눌러보세요.<br>
+    📖 신비로운 해결 냥냥이가 오늘의 조언을 전해드립니다… ✨
+  </p>
   <div id="advice-box">냥냥이가 조언을 줄 준비 중이에요!</div>
   <button onclick="drawAdvice()">조언 받기 😺</button>
 
@@ -185,7 +197,7 @@
 
     function drawAdvice() {
       if (pool.length === 0) {
-        pool = shuffle([...advices]); // 100개 다 쓰면 다시 섞기
+        pool = shuffle([...advices]);
       }
       const advice = pool.pop();
       const box = document.getElementById("advice-box");
